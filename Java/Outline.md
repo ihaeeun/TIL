@@ -1,8 +1,5 @@
-## 1. 자바 (Java Programming Language)
-#
-### 1.1 자바란?
-### 1.2 자바의 역사
-### 1.3 자바 언어의 특장
+<!-- ## 1. 자바 (Java Programming Language) -->
+## Java의 특징
 1. 운영체제에 독립적이다.
     > 자바 응용프로그램은 하드웨어가 아닌 **JVM**하고만 통신하고 JVM이 자바 응용프로그램으로부터 전달받은 명령을 해당 운영체제가 이해할 수 있도록 변환하여 전달한다.  
     **_자바로 작성된 프로그램은 운영체제에 독립적이지만 JVM은 운영체제에 종속적이다._**
@@ -17,19 +14,20 @@
 7. 동적 로딩을 지원한다.
     > 실행 시에 모든 클래스가 로딩되지 않고 필요한 시점에 클래스를 로딩하여 사용할 수 있다. 
 
-### 1.4 JVM(Java Virtual Machine)
----
----
-## 2.자바개발환경 구축하기
----
----
-## 3. 자바로 프로그래밍 작성하기 
-.java 파일을 실행하기 위해서는  
-> 1. 자바컴파일러(javac.exe)로 소스파일(.java)로부터 클래스파일(.class) 생성  
+#
+## JVM(Java Virtual Machine)
+<br>  
+
+#
+## .java 파일 실행
+> 1. 자바컴파일러(javac.exe)로 소스파일(.java)로부터 클래스파일(.class) 생성
 > 2. 자바 인터프리터(java.exe)로 실행
 
-**public static void main(String[] args)**
-: main 메소드의 선언부로, 프로그램 실행 시에 'java.exe'에 의해 호출될 수 있도록 미리 약속된 부분
+<br>
+
+#
+## public static void main(String[] args)
+main 메소드의 선언부로, 프로그램 실행 시에 'java.exe'에 의해 호출될 수 있도록 미리 약속된 부분
 ```java
 class 클래스이름 {
     public static void main(String[] args) {    //main 메소드 선언부
@@ -37,3 +35,7 @@ class 클래스이름 {
     }
 }
 ```
+
+<br><br><br>
+#
+[출처] : Java의 정석 3rd Edition
