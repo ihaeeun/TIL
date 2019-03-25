@@ -14,18 +14,18 @@
 7. 동적 로딩을 지원한다.
     > 실행 시에 모든 클래스가 로딩되지 않고 필요한 시점에 클래스를 로딩하여 사용할 수 있다. 
 
-#
+
 ## JVM(Java Virtual Machine)
 <br>  
 
-#
+
 ## .java 파일 실행
 > 1. 자바컴파일러(javac.exe)로 소스파일(.java)로부터 클래스파일(.class) 생성
 > 2. 자바 인터프리터(java.exe)로 실행
 
 <br>
 
-#
+
 ## public static void main(String[] args)
 main 메소드의 선언부로, 프로그램 실행 시에 'java.exe'에 의해 호출될 수 있도록 미리 약속된 부분
 ```java
