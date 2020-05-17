@@ -49,6 +49,34 @@ for(int i = 0; i <= n; i++){
 인접행렬의 경우 크기가 정점과 간선의 개수와 상관없이 (정점 개수)*(정점 개수)이기 때문에 공간복잡도가 O(v^2)이다.  
 하지만 인접리스트는 필요한 공간만 쓰기 때문에 O(v+e)가 된다.  
 
+
+**파이썬 인접리스트 구현**
+1. list
+- 어떤 알고리즘을 수행하는 작업이 이웃 노드를 반복해서 접근하는 경우 유용
+- 간선이 많은 경우 set을 이용하는 것이 좋음
+
+```python
+a,b,c,d,e,f = range(6) # node:6
+
+N = [[b,c,d,f], [a,d,f], [a,b,d,e], [a,e], [a,b,d], [b,c,d,e]]
+
+b in N[a] # True
+b in N[b] # False
+len(N[e]) # 차수 : 3
+```
+
+2. dict
+- 노드가 키가 되고, 각 노드를 간선 가중치 등의 값으로 연결할 수 있음
+```python
+a,b,c,d,e,f = range(6) # node:6
+
+N = [{b:1,c:1,d:4,f:3}, {a:2,d:1,f:3}, {a:1,b:1,d:2,e:4}, {a:3,f:3}, {b:1, c:2, d:4, e:3}]
+
+c in N[a] # True
+len(N[d]) # 2
+N[a][b] # 간선 가중치 1
+```
+
 <br>
 
 ## DFS와 BFS
@@ -58,6 +86,7 @@ for(int i = 0; i <= n; i++){
 
 ### **DFS** (Depth Fisrt Search, 깊이 우선 탐색)
 - 최대한 깊숙히 많이 탐색  
+- 가장 마지막에 만났던 갈림길의 정점으로 되돌아가서 다시 DFS 반복
 - 일반적으로 인접행렬을 이용한 **재귀행렬**을 사용하여 구현 (재귀 함수는 스택으로 이뤄짐)
 - **스택**을 사용할 수도 있다.  
 - 부모 노드로 돌아오는 과정을 **백트래킹**(Backtracking)이라고 한다.(스택 POP)   
@@ -149,6 +178,35 @@ public static void dfs(int[][] a, boolean[] c, int v, boolean flag) {
 3. 연결된 간선이 없고, 방문하지 않은 정점을 찾지 못한다면 pop.
 => 다시 돌아가기 위해
 
+#### Python
+```python
+# 재귀
+# G: 그래프 v: 시작 정점
+# visited: 정점의 방문정보 표시, False로 초기화
+# G[v] : 그래프 G에서 v의 인접 정점 리스트
+def DFS_Recursive(G, v):
+    visited[v] = True
+    visit(v)
+    for w in G[v]:
+        if not visited[w]:
+            recu(G, w)
+
+# 반복
+# G: 그래프 S: 스택 v: 시작 정점
+# visited: 정점의 방문정보 표시, False로 초기화
+# G[v] : 그래프 G에서 v의 인접 정점 집합
+def DFS_Iterative(S, v):
+    S = [v]
+    while stack:
+        v = S.pop()
+        if v not in visited:
+            visited.append(v)
+            visit()
+            S.extend(G[v]-set(visited))
+        return visited
+
+```
+
 <br>
 
 ### **BFS** (Breadth First Search, 너비 우선 탐색)
@@ -157,7 +215,7 @@ public static void dfs(int[][] a, boolean[] c, int v, boolean flag) {
 - 일반적으로 **큐**를 사용하여 구현한다.
 - 현재 위치에서 갈 수 있는 모든 것을 큐에 넣는 방식
 - 큐에 넣을 때 방문했다고 체크해야 함
-- 모든 가중치가 1인 경우 최단거리를 찾는 알고리즘
+- 모든 가중치가 1인 경우 최단거리를 찾는 알고리즘 
 
 
 #### 장점
@@ -221,6 +279,45 @@ while(!q.isEmpty()){
 인접 행렬의 경우 정점을 탐색하는 과정에서 무조건 1에서 n까지 루프를 돌았다.  
 인접 리스트의 경우에는 리스트 특성상 각 리스트마다 존재하는 정점만큼 존재한다.  
 따라서 i에서 n까지 돌지 않아도 되고, 존재하는 만큼만 탐색하면 되기 때문에 시간복잡도 측면에서도 효율적이다.  
+
+
+#### Python
+```python
+# G: 그래프 Q: 큐 v: 시작 정점
+# visited: 정점의 방문정보 표시, False로 초기화
+# G[v] : 그래프 G에서 v의 인접 정점 리스트
+def BFS(Q, v):
+    Q.append(v)
+    visited[v] = True
+    visit(v)
+    while Q:
+        v = Q.pop(0)
+        for w in G[v]:
+            Q.append(w)
+            visited[w] = True
+            visit(w)
+
+# BFS 확장 알고리즘 (최단 경로)
+# D : 시작 정점에서 각 정점까지의 최단 거리 저장을 위한 리스트
+# P : 최단 경로 트리 저장을 위한 리스트
+# 각 정점-최단 경로 트리에서 부모에 대한 정보 저장 : 자신이 부모인 경우 읽기 종료
+# 최단 거리는 시작 정점에서 도착점까지 최단 경로를 구성하는 간선의 개수
+def BFS(Q, v):
+    D[v] = 0
+    P[v] = v
+    Q.append(v)
+    visited[v] = True
+    visit(v)
+    while Q:
+        v = Q.pop(0)
+        for w in G[v]:
+            if not visited[w]:
+                Q.append(w)
+                visited[w] = True
+                visit(w)
+                D[w] = D[v] + 1
+                P[w] = v
+```
 
 [참고]   
 https://wanna-b.tistory.com/64  
